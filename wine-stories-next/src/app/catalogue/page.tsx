@@ -1,0 +1,156 @@
+"use client";
+import { useState, useRef, useEffect } from "react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+
+const wines = [
+  {
+    name: "Chianti Classico",
+    image: "/assets/wines/chianti.webp",
+    description:
+      "A traditional Tuscan red wine with notes of cherry and earthy spice.",
+  },
+  {
+    name: "Barolo Riserva",
+    image: "/assets/wines/barolo.webp",
+    description:
+      "Aged to perfection, this wine boasts deep flavors of plum and leather.",
+  },
+  {
+    name: "Montepulciano d’Abruzzo",
+    image: "/assets/wines/montepulciano.webp",
+    description:
+      "A medium-bodied red with soft tannins and dark fruit flavors.",
+  },
+  {
+    name: "Amarone della Valpolicella",
+    image: "/assets/wines/amarone.webp",
+    description:
+      "Rich and full-bodied, known for its dried fruit and chocolate notes.",
+  },
+  {
+    name: "Prosecco Superiore",
+    image: "/assets/wines/prosecco.webp",
+    description:
+      "A crisp and refreshing sparkling wine with hints of green apple and citrus.",
+  },
+  {
+    name: "Nero d’Avola",
+    image: "/assets/wines/nero.webp",
+    description:
+      "A bold Sicilian red with flavors of black cherry, plum, and spice.",
+  },
+];
+
+function useInView(ref: React.RefObject<HTMLElement>, rootMargin = "0px") {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (!ref.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin },
+    );
+
+    observer.observe(ref.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [ref, rootMargin]);
+
+  return isVisible;
+}
+
+export default function CataloguePage() {
+  const [flipped, setFlipped] = useState<string | null>(null);
+
+  return (
+    <div className="bg-[#282828] text-white/70 min-h-screen font-sans">
+      <Header
+        background="/assets/grapes-cellar.jpg"
+        height="40vh"
+        overlayOpacity="bg-black/50"
+      />
+
+      <main className="w-[90%] md:w-[80%] mx-auto py-16">
+        <h1 className="text-3xl md:text-4xl text-center text-white font-bold mb-6">
+          Wine Catalogue
+        </h1>
+        <hr className="w-20 border-t border-white/70 mx-auto mb-12" />
+
+        <section className="grid gap-8 md:grid-cols-3">
+          {wines.map((wine) => {
+            const cardRef = useRef<HTMLDivElement>(null);
+            const isVisible = useInView(cardRef, "-50px");
+            const isFlipped = flipped === wine.name;
+
+            return (
+              <div
+                key={wine.name}
+                ref={cardRef}
+                className={`relative cursor-pointer perspective transition-all duration-700 ease-out transform ${
+                  isVisible
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-4"
+                }`}
+                onClick={() => setFlipped(isFlipped ? null : wine.name)}
+              >
+                <div
+                  className={`transition-transform duration-500 transform-style-preserve-3d relative w-full h-80 rounded shadow-md hover:scale-105 ${
+                    isFlipped ? "rotate-y-180" : ""
+                  }`}
+                >
+                  {/* Front */}
+                  <div className="absolute w-full h-full backface-hidden bg-[#1e1e1e] rounded overflow-hidden">
+                    <img
+                      src={wine.image}
+                      alt={wine.name}
+                      loading="lazy"
+                      className="w-full h-64 object-cover"
+                    />
+                    <div className="p-4 text-center">
+                      <h3 className="text-white font-semibold text-lg transition-colors duration-300 hover:text-[#Bfa46f]">
+                        {wine.name}
+                      </h3>
+                    </div>
+                  </div>
+
+                  {/* Back */}
+                  <div className="absolute w-full h-full backface-hidden bg-[#Bfa46f] text-black rounded p-6 transform rotate-y-180 flex items-center justify-center text-center">
+                    <p>{wine.description}</p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </section>
+      </main>
+
+      <footer>
+        <Footer />
+      </footer>
+
+      <style jsx>{`
+        .perspective {
+          perspective: 1000px;
+        }
+        .transform-style-preserve-3d {
+          transform-style: preserve-3d;
+        }
+        .backface-hidden {
+          backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+          transform: rotateY(180deg);
+        }
+      `}</style>
+    </div>
+  );
+}

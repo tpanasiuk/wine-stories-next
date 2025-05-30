@@ -44,7 +44,7 @@ const wines = [
   },
 ];
 
-function useInView(ref: React.RefObject<HTMLElement>, rootMargin = '0px') {
+function useInView(ref: React.RefObject<HTMLElement | null>, rootMargin = '0px') {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -67,6 +67,7 @@ function useInView(ref: React.RefObject<HTMLElement>, rootMargin = '0px') {
 
   return isVisible;
 }
+
 
 export default function CataloguePage() {
   const [flipped, setFlipped] = useState<string | null>(null);

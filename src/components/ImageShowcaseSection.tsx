@@ -4,7 +4,7 @@ import React from 'react';
 import { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 
-function useInView(ref: React.RefObject<Element>, margin = '0px') {
+function useInView(ref: React.RefObject<Element | null>, margin = '0px') {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -27,8 +27,8 @@ function useInView(ref: React.RefObject<Element>, margin = '0px') {
   return visible;
 }
 
-function useRefArray<T>(length: number) {
-  const refs = useRef<React.RefObject<T>[]>([]);
+function useRefArray<T>(length: number): React.RefObject<T | null>[] {
+  const refs = useRef<React.RefObject<T | null>[]>([]);
   if (refs.current.length !== length) {
     refs.current = Array(length)
       .fill(null)
@@ -36,6 +36,7 @@ function useRefArray<T>(length: number) {
   }
   return refs.current;
 }
+
 
 const images = [
   {

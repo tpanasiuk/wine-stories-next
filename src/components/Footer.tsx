@@ -1,3 +1,6 @@
+"use client";
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer id="footer" className="bg-[#Bfa46f] text-white/70 text-sm py-8">
@@ -36,19 +39,19 @@ export default function Footer() {
           <nav>
             <ul className="flex flex-col gap-2">
               <li>
-                <a href="/" className="hover:text-black">
+                <Link href="/" className="hover:text-black">
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/catalogue" className="hover:text-black">
+                <Link href="/catalogue" className="hover:text-black">
                   Wine Catalogue
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/events" className="hover:text-black">
+                <Link href="/events" className="hover:text-black">
                   Upcoming Tastings
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>

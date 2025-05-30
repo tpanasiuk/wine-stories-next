@@ -1,35 +1,8 @@
 "use client";
-import { useRef, useEffect, useState } from "react";
+import { useRef } from "react";
 import Header from "@/components/Header";
-import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import EventCard from "@/components/EventCard";
-
-function useInView(ref: React.RefObject<HTMLElement>, rootMargin = "0px") {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    if (!ref.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin },
-    );
-
-    observer.observe(ref.current);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [ref, rootMargin]);
-
-  return isVisible;
-}
 
 export default function EventsPage() {
   const events = [
@@ -51,7 +24,6 @@ export default function EventsPage() {
   ];
 
   const sectionRef = useRef<HTMLElement>(null);
-  const isVisible = useInView(sectionRef, "-50px");
 
   return (
     <div className="bg-[#282828] text-white/70 min-h-screen font-sans">
@@ -70,9 +42,7 @@ export default function EventsPage() {
 
         <section
           ref={sectionRef}
-          className={`grid gap-6 md:grid-cols-3 transition-all duration-1000 ease-out transform ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          }`}
+          className="grid gap-6 md:grid-cols-3 opacity-100 translate-y-0"
         >
           {events.map((event) => (
             <EventCard key={event.date} {...event} />

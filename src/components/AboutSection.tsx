@@ -1,3 +1,6 @@
+"use client";
+import Image from "next/image";
+
 export default function AboutSection() {
   return (
     <section id="about" className="bg-[#282828] py-16 text-white/70">
@@ -11,7 +14,7 @@ export default function AboutSection() {
             Ozzano Selection is a leader in the sale of Italian wines abroad. It
             all stems from an entrepreneurial idea by Matteo Ozzano. The
             experience accumulated in over 10 years with the previous company
-            Wine Selection & Trading led the young entrepreneur to change the
+            Wine Selection &amp; Trading led the young entrepreneur to change the
             name of his company, choosing a way that could communicate a more
             personal relationship between company, customer and territory.
             Ozzano Selection, in fact, leads back to a brand that identifies
@@ -19,10 +22,12 @@ export default function AboutSection() {
             wine selection abroad.
           </p>
           <figure className="mt-6">
-            <img
+            <Image
               src="/assets/image.png"
               alt="Wine glass icon"
-              className="mx-auto max-w-[200px]"
+              width={200}
+              height={200}
+              className="mx-auto"
             />
           </figure>
         </div>

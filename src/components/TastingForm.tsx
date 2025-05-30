@@ -1,6 +1,7 @@
 "use client";
 import { useRef } from "react";
 import toast from "react-hot-toast";
+import Image from "next/image";
 
 export default function TastingForm() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -19,16 +20,20 @@ export default function TastingForm() {
       {/* Decorative side images */}
       <div className="flex flex-row justify-between items-center md:items-start px-10 md:px-20 gap-6 md:gap-0 mb-[-6rem] md:mb-[-15rem]">
         <div className="max-w-[150px] flex justify-center md:justify-start">
-          <img
+          <Image
             src="/assets/grapes.jpg"
             alt="Grapes icon"
+            width={100}
+            height={100}
             className="h-auto w-[100px] md:w-auto"
           />
         </div>
         <div className="max-w-[150px] flex justify-center md:justify-end">
-          <img
+          <Image
             src="/assets/barrel.jpeg"
             alt="Barrel icon"
+            width={100}
+            height={100}
             className="h-auto w-[100px] md:w-auto"
           />
         </div>

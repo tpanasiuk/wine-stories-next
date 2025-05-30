@@ -1,3 +1,6 @@
+"use client";
+import Image from "next/image";
+
 export default function BestsellersSection() {
   return (
     <section
@@ -19,9 +22,7 @@ export default function BestsellersSection() {
                 <span className="text-primary font-bold">2020</span>
                 <div>
                   <h3 className="text-lg font-semibold">Sartori Fira Bianco</h3>
-                  <p className="text-sm">
-                    A special wine with wonderful taste.
-                  </p>
+                  <p className="text-sm">A special wine with wonderful taste.</p>
                 </div>
               </div>
             </li>
@@ -32,9 +33,7 @@ export default function BestsellersSection() {
                   <h3 className="text-lg font-semibold">
                     Brunelli Bianco di Custoza
                   </h3>
-                  <p className="text-sm">
-                    A special wine with wonderful taste.
-                  </p>
+                  <p className="text-sm">A special wine with wonderful taste.</p>
                 </div>
               </div>
             </li>
@@ -45,42 +44,44 @@ export default function BestsellersSection() {
                   <h3 className="text-lg font-semibold">
                     Domini Veneti Raudii Garganega
                   </h3>
-                  <p className="text-sm">
-                    A special wine with wonderful taste.
-                  </p>
+                  <p className="text-sm">A special wine with wonderful taste.</p>
                 </div>
               </div>
             </li>
           </ul>
 
           <p className="mt-8 text-sm leading-relaxed">
-            Meet the makers behind our bestsellers. Through our online
-            community, you'll connect with passionate Italian winemakers, learn
-            their stories, and explore the regions they call home.
+            Meet the makers behind our bestsellers. Through our online community, you&apos;ll connect with passionate Italian winemakers, learn their stories, and explore the regions they call home.
           </p>
         </div>
 
         {/* Right Side: Images */}
         <div className="space-y-6">
           <div className="overflow-hidden rounded shadow-lg">
-            <img
+            <Image
               src="/assets/Rectangle%2011.png"
               alt="Glass of wine"
+              width={800}
+              height={400}
               className="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="overflow-hidden rounded shadow-lg">
-              <img
+              <Image
                 src="/assets/Rectangle%2012.png"
                 alt="Wine bottles on shelf"
+                width={400}
+                height={200}
                 className="w-full h-40 object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>
             <div className="overflow-hidden rounded shadow-lg">
-              <img
+              <Image
                 src="/assets/Rectangle%2013.png"
                 alt="Wine bottles"
+                width={400}
+                height={200}
                 className="w-full h-40 object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>

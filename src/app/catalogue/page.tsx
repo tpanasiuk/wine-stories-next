@@ -1,48 +1,50 @@
-"use client";
-import { useState, useRef, useEffect } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+'use client';
+
+import { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const wines = [
   {
-    name: "Chianti Classico",
-    image: "/assets/wines/chianti.webp",
+    name: 'Chianti Classico',
+    image: '/assets/wines/chianti.webp',
     description:
-      "A traditional Tuscan red wine with notes of cherry and earthy spice.",
+      'A traditional Tuscan red wine with notes of cherry and earthy spice.',
   },
   {
-    name: "Barolo Riserva",
-    image: "/assets/wines/barolo.webp",
+    name: 'Barolo Riserva',
+    image: '/assets/wines/barolo.webp',
     description:
-      "Aged to perfection, this wine boasts deep flavors of plum and leather.",
+      'Aged to perfection, this wine boasts deep flavors of plum and leather.',
   },
   {
-    name: "Montepulciano d’Abruzzo",
-    image: "/assets/wines/montepulciano.webp",
+    name: 'Montepulciano d’Abruzzo',
+    image: '/assets/wines/montepulciano.webp',
     description:
-      "A medium-bodied red with soft tannins and dark fruit flavors.",
+      'A medium-bodied red with soft tannins and dark fruit flavors.',
   },
   {
-    name: "Amarone della Valpolicella",
-    image: "/assets/wines/amarone.webp",
+    name: 'Amarone della Valpolicella',
+    image: '/assets/wines/amarone.webp',
     description:
-      "Rich and full-bodied, known for its dried fruit and chocolate notes.",
+      'Rich and full-bodied, known for its dried fruit and chocolate notes.',
   },
   {
-    name: "Prosecco Superiore",
-    image: "/assets/wines/prosecco.webp",
+    name: 'Prosecco Superiore',
+    image: '/assets/wines/prosecco.webp',
     description:
-      "A crisp and refreshing sparkling wine with hints of green apple and citrus.",
+      'A crisp and refreshing sparkling wine with hints of green apple and citrus.',
   },
   {
-    name: "Nero d’Avola",
-    image: "/assets/wines/nero.webp",
+    name: 'Nero d’Avola',
+    image: '/assets/wines/nero.webp',
     description:
-      "A bold Sicilian red with flavors of black cherry, plum, and spice.",
+      'A bold Sicilian red with flavors of black cherry, plum, and spice.',
   },
 ];
 
-function useInView(ref: React.RefObject<HTMLElement>, rootMargin = "0px") {
+function useInView(ref: React.RefObject<HTMLElement>, rootMargin = '0px') {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -55,14 +57,12 @@ function useInView(ref: React.RefObject<HTMLElement>, rootMargin = "0px") {
           observer.disconnect();
         }
       },
-      { rootMargin },
+      { rootMargin }
     );
 
     observer.observe(ref.current);
 
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, [ref, rootMargin]);
 
   return isVisible;
@@ -88,30 +88,40 @@ export default function CataloguePage() {
         <section className="grid gap-8 md:grid-cols-3">
           {wines.map((wine) => {
             const cardRef = useRef<HTMLDivElement>(null);
-            const isVisible = useInView(cardRef, "-50px");
+            const isVisible = useInView(cardRef, '-50px');
             const isFlipped = flipped === wine.name;
 
             return (
               <div
                 key={wine.name}
                 ref={cardRef}
-                className={`relative cursor-pointer perspective transition-all duration-700 ease-out transform ${
-                  isVisible
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-4"
-                }`}
+                role="button"
+                tabIndex={0}
+                aria-pressed={isFlipped}
                 onClick={() => setFlipped(isFlipped ? null : wine.name)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    setFlipped(isFlipped ? null : wine.name);
+                  }
+                }}
+                className={`relative cursor-pointer perspective transition-all duration-700 ease-out transform focus:outline-none ${
+                  isVisible
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-4'
+                }`}
               >
                 <div
                   className={`transition-transform duration-500 transform-style-preserve-3d relative w-full h-80 rounded shadow-md hover:scale-105 ${
-                    isFlipped ? "rotate-y-180" : ""
+                    isFlipped ? 'rotate-y-180' : ''
                   }`}
                 >
                   {/* Front */}
                   <div className="absolute w-full h-full backface-hidden bg-[#1e1e1e] rounded overflow-hidden">
-                    <img
+                    <Image
                       src={wine.image}
                       alt={wine.name}
+                      width={400}
+                      height={256}
                       loading="lazy"
                       className="w-full h-64 object-cover"
                     />

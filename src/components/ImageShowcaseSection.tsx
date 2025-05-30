@@ -1,10 +1,15 @@
-"use client";
-import { useRef, useEffect, useState } from "react";
+'use client';
 
-function useInView(ref: React.RefObject<HTMLElement>, margin = "0px") {
+import React from 'react';
+import { useRef, useEffect, useState } from 'react';
+import Image from 'next/image';
+
+function useInView(ref: React.RefObject<Element>, margin = '0px') {
   const [visible, setVisible] = useState(false);
+
   useEffect(() => {
     if (!ref.current) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -12,51 +17,67 @@ function useInView(ref: React.RefObject<HTMLElement>, margin = "0px") {
           observer.disconnect();
         }
       },
-      { rootMargin: margin },
+      { rootMargin: margin }
     );
+
     observer.observe(ref.current);
     return () => observer.disconnect();
   }, [ref, margin]);
+
   return visible;
+}
+
+function useRefArray<T>(length: number) {
+  const refs = useRef<React.RefObject<T>[]>([]);
+  if (refs.current.length !== length) {
+    refs.current = Array(length)
+      .fill(null)
+      .map(() => React.createRef<T>());
+  }
+  return refs.current;
 }
 
 const images = [
   {
-    src: "/assets/wines/1.png",
-    alt: "Chianti",
-    style: "top-[30px] left-[5%]",
-    animateFrom: "-translate-x-12",
-    z: "z-20",
+    src: '/assets/wines/1.png',
+    alt: 'Chianti',
+    style: 'top-[30px] left-[5%]',
+    animateFrom: '-translate-x-12',
+    z: 'z-20',
   },
   {
-    src: "/assets/wines/2.webp",
-    alt: "Nero d’Avola",
-    style: "top-[80px] left-[28%]",
-    animateFrom: "translate-y-12",
-    z: "z-10",
+    src: '/assets/wines/2.webp',
+    alt: 'Nero d’Avola',
+    style: 'top-[80px] left-[28%]',
+    animateFrom: 'translate-y-12',
+    z: 'z-10',
   },
   {
-    src: "/assets/wines/5.jpg",
-    alt: "Prosecco",
-    style: "top-[160px] left-[52%]",
-    animateFrom: "translate-x-12",
-    z: "z-0",
+    src: '/assets/wines/5.jpg',
+    alt: 'Prosecco',
+    style: 'top-[160px] left-[52%]',
+    animateFrom: 'translate-x-12',
+    z: 'z-0',
   },
   {
-    src: "/assets/wines/4.webp",
-    alt: "Barolo",
-    style: "top-[100px] left-[74%]",
-    animateFrom: "-translate-y-12",
-    z: "z-[1]",
+    src: '/assets/wines/4.webp',
+    alt: 'Barolo',
+    style: 'top-[100px] left-[74%]',
+    animateFrom: '-translate-y-12',
+    z: 'z-[1]',
   },
 ];
 
 export default function ImageShowcaseSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
-  const isTitleVisible = useInView(titleRef, "-100px");
-  const bgRef = useRef<HTMLDivElement>(null);
-  const bgVisible = useInView(bgRef, "-100px");
+  const bgWrapperRef = useRef<HTMLDivElement>(null);
+
+  const isTitleVisible = useInView(titleRef, '-100px');
+  const bgVisible = useInView(bgWrapperRef, '-100px');
+
+  const desktopImgRefs = useRefArray<HTMLDivElement>(images.length);
+  const mobileImgRefs = useRefArray<HTMLDivElement>(images.length);
 
   return (
     <section
@@ -64,24 +85,31 @@ export default function ImageShowcaseSection() {
       className="relative md:h-[600px] w-full overflow-hidden bg-[#1e1e1e]"
     >
       {/* Background image */}
-      <img
-        ref={bgRef}
-        src="/assets/wines/background.webp"
-        alt="Background"
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[1000ms] ease-out ${
-          bgVisible ? "opacity-30" : "opacity-0"
+      <div
+        ref={bgWrapperRef}
+        className={`absolute inset-0 transition-opacity duration-[1000ms] ease-out ${
+          bgVisible ? 'opacity-30' : 'opacity-0'
         }`}
-      />
+      >
+        <Image
+          src="/assets/wines/background.webp"
+          alt="Background"
+          fill
+          style={{ objectFit: 'cover' }}
+          priority={false}
+        />
+      </div>
 
-      {/* Overlay on top of images */}
+      {/* Overlay */}
       <div className="absolute inset-0 bg-black/40 z-10 pointer-events-none" />
 
+      {/* Title */}
       <div
         ref={titleRef}
         className={`w-full text-center px-4 z-20
           relative pt-6 md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2
           transition-all duration-[3000ms] ease-out
-          ${isTitleVisible ? "opacity-100 translate-y-0" : "opacity-0 md:-translate-y-4"}
+          ${isTitleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 md:-translate-y-4'}
         `}
       >
         <h2 className="text-white text-3xl md:text-5xl font-bold drop-shadow-xl">
@@ -89,45 +117,54 @@ export default function ImageShowcaseSection() {
         </h2>
       </div>
 
-      {/* Desktop overlapping layout */}
+      {/* Desktop layout */}
       <div className="relative w-full h-full hidden md:block z-0">
-        {images.map((img) => {
-          const imgRef = useRef<HTMLImageElement>(null);
-          const isVisible = useInView(imgRef, "-50px");
-
+        {images.map((img, index) => {
+          const isVisible = useInView(desktopImgRefs[index], '-50px');
           return (
-            <img
+            <div
               key={img.alt}
-              ref={imgRef}
-              src={img.src}
-              alt={img.alt}
-              className={`absolute ${img.style} ${img.z} max-w-[460px] w-auto h-auto max-h-[440px] rounded object-cover shadow-lg transition-all duration-[3000ms] ease-out transform ${
-                isVisible
-                  ? "opacity-100 translate-x-0 translate-y-0"
-                  : `opacity-0 ${img.animateFrom}`
-              }`}
-            />
+              ref={desktopImgRefs[index]}
+              className={`absolute ${img.style} ${img.z} max-w-[460px] w-auto max-h-[440px]
+                transition-all duration-[3000ms] ease-out transform
+                ${isVisible ? 'opacity-100 translate-x-0 translate-y-0' : `opacity-0 ${img.animateFrom}`}
+              `}
+            >
+              <Image
+                src={img.src}
+                alt={img.alt}
+                width={460}
+                height={440}
+                className="rounded object-cover shadow-lg w-full h-auto"
+              />
+            </div>
           );
         })}
       </div>
 
-      {/* Mobile stacked layout with fade-in */}
+      {/* Mobile layout */}
       <div className="relative w-full h-full flex flex-col items-center gap-6 py-20 px-4 md:hidden z-0">
         {images.map((img, index) => {
-          const imgRef = useRef<HTMLImageElement>(null);
-          const isVisible = useInView(imgRef, "-50px");
+          const isVisible = useInView(mobileImgRefs[index], '-50px');
+          const delay = `${index * 200}ms`;
 
           return (
-            <img
+            <div
               key={img.alt}
-              ref={imgRef}
-              src={img.src}
-              alt={img.alt}
-              className={`w-full max-w-[360px] h-auto rounded object-cover shadow-lg transition-all duration-[1200ms] ease-out transform
-          ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}
-          delay-[${index * 200}ms]
-        `}
-            />
+              ref={mobileImgRefs[index]}
+              style={{ transitionDelay: delay }}
+              className={`w-full max-w-[360px] transition-all duration-[1200ms] ease-out transform
+                ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
+              `}
+            >
+              <Image
+                src={img.src}
+                alt={img.alt}
+                width={360}
+                height={240}
+                className="rounded object-cover shadow-lg w-full h-auto"
+              />
+            </div>
           );
         })}
       </div>

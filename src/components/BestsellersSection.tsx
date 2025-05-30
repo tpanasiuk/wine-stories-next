@@ -1,6 +1,8 @@
 "use client";
 import Image from "next/image";
 
+const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 export default function BestsellersSection() {
   return (
     <section
@@ -59,7 +61,7 @@ export default function BestsellersSection() {
         <div className="space-y-6">
           <div className="overflow-hidden rounded shadow-lg">
             <Image
-              src="/assets/Rectangle%2011.png"
+              src={`${base}/assets/Rectangle%2011.png`}
               alt="Glass of wine"
               width={800}
               height={400}
@@ -69,7 +71,7 @@ export default function BestsellersSection() {
           <div className="grid grid-cols-2 gap-4">
             <div className="overflow-hidden rounded shadow-lg">
               <Image
-                src="/assets/Rectangle%2012.png"
+                src={`${base}/assets/Rectangle%2012.png`}
                 alt="Wine bottles on shelf"
                 width={400}
                 height={200}
@@ -78,7 +80,7 @@ export default function BestsellersSection() {
             </div>
             <div className="overflow-hidden rounded shadow-lg">
               <Image
-                src="/assets/Rectangle%2013.png"
+                src={`${base}/assets/Rectangle%2013.png`}
                 alt="Wine bottles"
                 width={400}
                 height={200}

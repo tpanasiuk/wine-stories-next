@@ -1,3 +1,6 @@
+"use client";
+import Link from "next/link";
+
 interface HeroProps {
   background: string;
 }
@@ -19,18 +22,18 @@ export default function Hero({ background }: HeroProps) {
         </blockquote>
 
         <div className="flex flex-col sm:flex-row justify-center gap-4 mt-20 mb-20 px-4">
-          <a
+          <Link
             href="/catalogue"
             className="bg-[#Bfa46f] text-white text-sm tracking-widest uppercase px-6 py-3 text-center hover:bg-[#282828] transition"
           >
             Wine Catalogue
-          </a>
-          <a
+          </Link>
+          <Link
             href="/events"
             className="bg-[#Bfa46f] text-white text-sm tracking-widest uppercase px-6 py-3 text-center hover:bg-[#282828] transition"
           >
             Upcoming Wine Tastings
-          </a>
+          </Link>
         </div>
       </div>
     </section>

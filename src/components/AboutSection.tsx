@@ -1,6 +1,8 @@
 "use client";
 import Image from "next/image";
 
+const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 export default function AboutSection() {
   return (
     <section id="about" className="bg-[#282828] py-16 text-white/70">
@@ -23,7 +25,7 @@ export default function AboutSection() {
           </p>
           <figure className="mt-6">
             <Image
-              src="/assets/image.png"
+              src={`${base}/assets/image.png`}
               alt="Wine glass icon"
               width={200}
               height={200}

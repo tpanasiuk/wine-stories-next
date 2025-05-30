@@ -37,31 +37,32 @@ function useRefArray<T>(length: number): React.RefObject<T | null>[] {
   return refs.current;
 }
 
+const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 const images = [
   {
-    src: '/assets/wines/1.png',
+    src: `${base}/assets/wines/1.png`,
     alt: 'Chianti',
     style: 'top-[30px] left-[5%]',
     animateFrom: '-translate-x-12',
     z: 'z-20',
   },
   {
-    src: '/assets/wines/2.webp',
+    src: `${base}/assets/wines/2.webp`,
     alt: 'Nero d’Avola',
     style: 'top-[80px] left-[28%]',
     animateFrom: 'translate-y-12',
     z: 'z-10',
   },
   {
-    src: '/assets/wines/5.jpg',
+    src: `${base}/assets/wines/5.jpg`,
     alt: 'Prosecco',
     style: 'top-[160px] left-[52%]',
     animateFrom: 'translate-x-12',
     z: 'z-0',
   },
   {
-    src: '/assets/wines/4.webp',
+    src: `${base}/assets/wines/4.webp`,
     alt: 'Barolo',
     style: 'top-[100px] left-[74%]',
     animateFrom: '-translate-y-12',
@@ -93,7 +94,7 @@ export default function ImageShowcaseSection() {
         }`}
       >
         <Image
-          src="/assets/wines/background.webp"
+          src={`${base}/assets/wines/background.webp`}
           alt="Background"
           fill
           style={{ objectFit: 'cover' }}

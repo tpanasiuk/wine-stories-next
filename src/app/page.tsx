@@ -6,12 +6,14 @@ import BestsellersSection from "@/components/BestsellersSection";
 import TastingForm from "@/components/TastingForm";
 import Footer from "@/components/Footer";
 
+const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 export default function Home() {
   return (
     <>
       <header className="relative">
         <Nav />
-        <Hero background="/assets/field.jpg" />
+        <Hero background={`${base}/assets/field.jpg`} />
       </header>
 
       <main className="bg-dark">

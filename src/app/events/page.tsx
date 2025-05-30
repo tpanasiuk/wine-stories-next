@@ -4,6 +4,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import EventCard from "@/components/EventCard";
 
+const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 export default function EventsPage() {
   const events = [
     {
@@ -28,7 +30,7 @@ export default function EventsPage() {
   return (
     <div className="bg-[#282828] text-white/70 min-h-screen font-sans">
       <Header
-        background="/assets/grapes-field.jpg"
+        background={`${base}/assets/grapes-field.jpg`}
         height="40vh"
         overlayOpacity="bg-black/50"
       />

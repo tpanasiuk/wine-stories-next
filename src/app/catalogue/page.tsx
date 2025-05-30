@@ -5,42 +5,38 @@ import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
+const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 const wines = [
   {
     name: 'Chianti Classico',
-    image: '/assets/wines/chianti.webp',
-    description:
-      'A traditional Tuscan red wine with notes of cherry and earthy spice.',
+    image: `${base}/assets/wines/chianti.webp`,
+    description: 'A traditional Tuscan red wine with notes of cherry and earthy spice.',
   },
   {
     name: 'Barolo Riserva',
-    image: '/assets/wines/barolo.webp',
-    description:
-      'Aged to perfection, this wine boasts deep flavors of plum and leather.',
+    image: `${base}/assets/wines/barolo.webp`,
+    description: 'Aged to perfection, this wine boasts deep flavors of plum and leather.',
   },
   {
     name: 'Montepulciano d’Abruzzo',
-    image: '/assets/wines/montepulciano.webp',
-    description:
-      'A medium-bodied red with soft tannins and dark fruit flavors.',
+    image: `${base}/assets/wines/montepulciano.webp`,
+    description: 'A medium-bodied red with soft tannins and dark fruit flavors.',
   },
   {
     name: 'Amarone della Valpolicella',
-    image: '/assets/wines/amarone.webp',
-    description:
-      'Rich and full-bodied, known for its dried fruit and chocolate notes.',
+    image: `${base}/assets/wines/amarone.webp`,
+    description: 'Rich and full-bodied, known for its dried fruit and chocolate notes.',
   },
   {
     name: 'Prosecco Superiore',
-    image: '/assets/wines/prosecco.webp',
-    description:
-      'A crisp and refreshing sparkling wine with hints of green apple and citrus.',
+    image: `${base}/assets/wines/prosecco.webp`,
+    description: 'A crisp and refreshing sparkling wine with hints of green apple and citrus.',
   },
   {
     name: 'Nero d’Avola',
-    image: '/assets/wines/nero.webp',
-    description:
-      'A bold Sicilian red with flavors of black cherry, plum, and spice.',
+    image: `${base}/assets/wines/nero.webp`,
+    description: 'A bold Sicilian red with flavors of black cherry, plum, and spice.',
   },
 ];
 
@@ -68,14 +64,13 @@ function useInView(ref: React.RefObject<HTMLElement | null>, rootMargin = '0px')
   return isVisible;
 }
 
-
 export default function CataloguePage() {
   const [flipped, setFlipped] = useState<string | null>(null);
 
   return (
     <div className="bg-[#282828] text-white/70 min-h-screen font-sans">
       <Header
-        background="/assets/grapes-cellar.jpg"
+        background={`${base}/assets/grapes-cellar.jpg`}
         height="40vh"
         overlayOpacity="bg-black/50"
       />
@@ -106,9 +101,7 @@ export default function CataloguePage() {
                   }
                 }}
                 className={`relative cursor-pointer perspective transition-all duration-700 ease-out transform focus:outline-none ${
-                  isVisible
-                    ? 'opacity-100 translate-y-0'
-                    : 'opacity-0 translate-y-4'
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                 }`}
               >
                 <div

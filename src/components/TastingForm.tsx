@@ -3,6 +3,8 @@ import { useRef } from "react";
 import toast from "react-hot-toast";
 import Image from "next/image";
 
+const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 export default function TastingForm() {
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -21,7 +23,7 @@ export default function TastingForm() {
       <div className="flex flex-row justify-between items-center md:items-start px-10 md:px-20 gap-6 md:gap-0 mb-[-6rem] md:mb-[-15rem]">
         <div className="max-w-[150px] flex justify-center md:justify-start">
           <Image
-            src="/assets/grapes.jpg"
+            src={`${base}/assets/grapes.jpg`}
             alt="Grapes icon"
             width={100}
             height={100}
@@ -30,7 +32,7 @@ export default function TastingForm() {
         </div>
         <div className="max-w-[150px] flex justify-center md:justify-end">
           <Image
-            src="/assets/barrel.jpeg"
+            src={`${base}/assets/barrel.jpeg`}
             alt="Barrel icon"
             width={100}
             height={100}

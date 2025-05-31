@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useRef, useEffect, useState } from 'react';
-import Image from 'next/image';
+import { useRef, useEffect, useState } from "react";
+import Image from "next/image";
 
-const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
+const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export default function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -19,7 +19,7 @@ export default function AboutSection() {
           observer.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     observer.observe(sectionRef.current);
@@ -31,7 +31,7 @@ export default function AboutSection() {
       ref={sectionRef}
       id="about"
       className={`bg-[#282828] py-16 text-white/70 transition-all duration-[1000ms] ease-out ${
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
       }`}
     >
       <div className="w-[80%] mx-auto border-2 border-white/70 text-center">
@@ -44,9 +44,9 @@ export default function AboutSection() {
             Ozzano Selection is a leader in the sale of Italian wines abroad. It
             all stems from an entrepreneurial idea by Matteo Ozzano. The
             experience accumulated in over 10 years with the previous company
-            Wine Selection &amp; Trading led the young entrepreneur to change the
-            name of his company, choosing a way that could communicate a more
-            personal relationship between company, customer and territory.
+            Wine Selection &amp; Trading led the young entrepreneur to change
+            the name of his company, choosing a way that could communicate a
+            more personal relationship between company, customer and territory.
             Ozzano Selection, in fact, leads back to a brand that identifies
             with a person capable of offering an important and quality Italian
             wine selection abroad.

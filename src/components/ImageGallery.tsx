@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { useState } from 'react';
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { useState } from "react";
 
 interface ImageGalleryProps {
   images: { src: string; alt: string }[];
@@ -29,7 +29,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
                 className={`object-cover transition-transform duration-500 ease-in-out group-hover:scale-105 ${
-                  loaded ? 'opacity-100' : 'opacity-0'
+                  loaded ? "opacity-100" : "opacity-0"
                 }`}
                 onLoadingComplete={() => setLoaded(true)}
                 priority={index === 0}

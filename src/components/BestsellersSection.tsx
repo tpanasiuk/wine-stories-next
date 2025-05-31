@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 
-const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
+const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export default function BestsellersSection() {
   return (
@@ -24,7 +24,9 @@ export default function BestsellersSection() {
                 <span className="text-primary font-bold">2020</span>
                 <div>
                   <h3 className="text-lg font-semibold">Sartori Fira Bianco</h3>
-                  <p className="text-sm">A special wine with wonderful taste.</p>
+                  <p className="text-sm">
+                    A special wine with wonderful taste.
+                  </p>
                 </div>
               </div>
             </li>
@@ -35,7 +37,9 @@ export default function BestsellersSection() {
                   <h3 className="text-lg font-semibold">
                     Brunelli Bianco di Custoza
                   </h3>
-                  <p className="text-sm">A special wine with wonderful taste.</p>
+                  <p className="text-sm">
+                    A special wine with wonderful taste.
+                  </p>
                 </div>
               </div>
             </li>
@@ -46,14 +50,18 @@ export default function BestsellersSection() {
                   <h3 className="text-lg font-semibold">
                     Domini Veneti Raudii Garganega
                   </h3>
-                  <p className="text-sm">A special wine with wonderful taste.</p>
+                  <p className="text-sm">
+                    A special wine with wonderful taste.
+                  </p>
                 </div>
               </div>
             </li>
           </ul>
 
           <p className="mt-8 text-sm leading-relaxed">
-            Meet the makers behind our bestsellers. Through our online community, you&apos;ll connect with passionate Italian winemakers, learn their stories, and explore the regions they call home.
+            Meet the makers behind our bestsellers. Through our online
+            community, you&apos;ll connect with passionate Italian winemakers,
+            learn their stories, and explore the regions they call home.
           </p>
         </div>
 

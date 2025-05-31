@@ -23,7 +23,9 @@ export default function Nav() {
     <>
       <nav
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 px-4 ${
-          scrolled || menuOpen ? "bg-black/80 backdrop-blur-md" : "bg-transparent"
+          scrolled || menuOpen
+            ? "bg-black/80 backdrop-blur-md"
+            : "bg-transparent"
         }`}
       >
         <div className="flex justify-between items-center md:hidden py-4">
@@ -62,7 +64,10 @@ export default function Nav() {
         >
           <ul className="flex flex-col border-t border-white/70">
             {links.map((link) => (
-              <li key={link.href} className="border-b border-white/40 last:border-b-0">
+              <li
+                key={link.href}
+                className="border-b border-white/40 last:border-b-0"
+              >
                 <Link
                   href={link.href}
                   onClick={() => setMenuOpen(false)}

@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import EventCard from "@/components/EventCard";
 import { motion } from "framer-motion";
 
-const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
+const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export default function EventsPage() {
   const events = [
@@ -43,10 +43,7 @@ export default function EventsPage() {
 
         <hr className="w-20 border-t border-white/70 mx-auto mb-12" />
 
-        <section
-          ref={sectionRef}
-          className="grid gap-6 md:grid-cols-3"
-        >
+        <section ref={sectionRef} className="grid gap-6 md:grid-cols-3">
           {events.map((event, index) => (
             <motion.div
               key={event.date}
@@ -67,7 +64,6 @@ export default function EventsPage() {
             </motion.div>
           ))}
         </section>
-
       </main>
 
       <footer>

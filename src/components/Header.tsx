@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import Nav from './Nav';
+import { useEffect, useState } from "react";
+import Nav from "./Nav";
 
 interface HeaderProps {
   background: string;
@@ -11,8 +11,8 @@ interface HeaderProps {
 
 export default function Header({
   background,
-  height = '40vh',
-  overlayOpacity = 'bg-black/50',
+  height = "40vh",
+  overlayOpacity = "bg-black/50",
 }: HeaderProps) {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -25,7 +25,7 @@ export default function Header({
   return (
     <header
       className={`relative bg-cover bg-center transition-opacity duration-700 ease-in-out ${
-        isLoaded ? 'opacity-100' : 'opacity-0'
+        isLoaded ? "opacity-100" : "opacity-0"
       }`}
       style={{
         backgroundImage: `url(${background})`,

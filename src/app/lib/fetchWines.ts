@@ -1,11 +1,11 @@
 export type Wine = {
-wine_id?: string;
-title: string;
-winery: string;
-country: string;
-points: string;
-image?: string;
-description?: string;
+  wine_id?: string;
+  title: string;
+  winery: string;
+  country: string;
+  points: string;
+  image?: string;
+  description?: string;
 };
 
 export async function fetchAllWines(): Promise<Wine[]> {

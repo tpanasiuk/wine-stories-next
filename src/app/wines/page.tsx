@@ -3,14 +3,14 @@ import Footer from "@/components/Footer";
 import { fetchAllWines, Wine } from "@/app/lib/fetchWines";
 import WineTable from "@/components/WineTable";
 import Image from "next/image";
-import ImageGallery from '@/components/ImageGallery';
+import ImageGallery from "@/components/ImageGallery";
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const imageGallery = [
-  { src: `${base}/assets/wines/7.webp`, alt: 'Chianti bottle' },
-  { src: `${base}/assets/wines/6.webp`, alt: 'Barolo bottle' },
-  { src: `${base}/assets/wines/8.webp`, alt: 'Montepulciano bottle' },
+  { src: `${base}/assets/wines/7.webp`, alt: "Chianti bottle" },
+  { src: `${base}/assets/wines/6.webp`, alt: "Barolo bottle" },
+  { src: `${base}/assets/wines/8.webp`, alt: "Montepulciano bottle" },
 ];
 
 export default async function WinesPage() {

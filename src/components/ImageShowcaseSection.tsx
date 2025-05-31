@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React, { useRef, useEffect, useState } from 'react';
-import Image from 'next/image';
+import React, { useRef, useEffect, useState } from "react";
+import Image from "next/image";
 
-function useInView(ref: React.RefObject<Element | null>, margin = '0px') {
+function useInView(ref: React.RefObject<Element | null>, margin = "0px") {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ function useInView(ref: React.RefObject<Element | null>, margin = '0px') {
           observer.disconnect();
         }
       },
-      { rootMargin: margin }
+      { rootMargin: margin },
     );
 
     observer.observe(ref.current);
@@ -36,36 +36,36 @@ function useRefArray<T>(length: number): React.RefObject<T | null>[] {
   return refs.current;
 }
 
-const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
+const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const images = [
   {
     src: `${base}/assets/wines/1.webp`,
-    alt: 'Chianti',
-    style: 'top-[30px] left-[5%]',
-    animateFrom: '-translate-x-12',
-    z: 'z-20',
+    alt: "Chianti",
+    style: "top-[30px] left-[5%]",
+    animateFrom: "-translate-x-12",
+    z: "z-20",
   },
   {
     src: `${base}/assets/wines/2.webp`,
-    alt: 'Nero d’Avola',
-    style: 'top-[80px] left-[28%]',
-    animateFrom: 'translate-y-12',
-    z: 'z-10',
+    alt: "Nero d’Avola",
+    style: "top-[80px] left-[28%]",
+    animateFrom: "translate-y-12",
+    z: "z-10",
   },
   {
     src: `${base}/assets/wines/5.webp`,
-    alt: 'Prosecco',
-    style: 'top-[160px] left-[52%]',
-    animateFrom: 'translate-x-12',
-    z: 'z-0',
+    alt: "Prosecco",
+    style: "top-[160px] left-[52%]",
+    animateFrom: "translate-x-12",
+    z: "z-0",
   },
   {
     src: `${base}/assets/wines/4.webp`,
-    alt: 'Barolo',
-    style: 'top-[100px] left-[74%]',
-    animateFrom: '-translate-y-12',
-    z: 'z-[1]',
+    alt: "Barolo",
+    style: "top-[100px] left-[74%]",
+    animateFrom: "-translate-y-12",
+    z: "z-[1]",
   },
 ];
 
@@ -75,22 +75,22 @@ export default function ImageShowcaseSection() {
   const bgWrapperRef = useRef<HTMLDivElement>(null);
 
   const [bgLoaded, setBgLoaded] = useState(false);
-  const isTitleVisible = useInView(titleRef, '-100px');
-  const bgVisible = useInView(bgWrapperRef, '-100px');
+  const isTitleVisible = useInView(titleRef, "-100px");
+  const bgVisible = useInView(bgWrapperRef, "-100px");
 
   const desktopImgRefs = useRefArray<HTMLDivElement>(images.length);
   const mobileImgRefs = useRefArray<HTMLDivElement>(images.length);
 
   const [loadedDesktop, setLoadedDesktop] = useState<boolean[]>(
-    Array(images.length).fill(false)
+    Array(images.length).fill(false),
   );
   const [loadedMobile, setLoadedMobile] = useState<boolean[]>(
-    Array(images.length).fill(false)
+    Array(images.length).fill(false),
   );
 
   const markLoaded = (
     index: number,
-    setter: React.Dispatch<React.SetStateAction<boolean[]>>
+    setter: React.Dispatch<React.SetStateAction<boolean[]>>,
   ) => {
     setter((prev) => {
       const next = [...prev];
@@ -108,14 +108,14 @@ export default function ImageShowcaseSection() {
       <div
         ref={bgWrapperRef}
         className={`absolute inset-0 transition-opacity duration-[1000ms] ease-out ${
-          bgVisible && bgLoaded ? 'opacity-30' : 'opacity-0'
+          bgVisible && bgLoaded ? "opacity-30" : "opacity-0"
         }`}
       >
         <Image
           src={`${base}/assets/wines/background.webp`}
           alt="Background"
           fill
-          style={{ objectFit: 'cover' }}
+          style={{ objectFit: "cover" }}
           onLoad={() => setBgLoaded(true)}
         />
       </div>
@@ -129,7 +129,7 @@ export default function ImageShowcaseSection() {
         className={`w-full text-center px-4 z-20
           relative pt-6 md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2
           transition-all duration-[2000ms] ease-out
-          ${isTitleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 md:-translate-y-4'}
+          ${isTitleVisible ? "opacity-100 translate-y-0" : "opacity-0 md:-translate-y-4"}
         `}
       >
         <h2 className="text-white text-3xl md:text-5xl font-bold drop-shadow-xl">
@@ -140,7 +140,7 @@ export default function ImageShowcaseSection() {
       {/* Desktop layout */}
       <div className="relative w-full h-full hidden md:block z-0">
         {images.map((img, index) => {
-          const isVisible = useInView(desktopImgRefs[index], '-50px');
+          const isVisible = useInView(desktopImgRefs[index], "-50px");
           const shouldAnimate = isVisible && loadedDesktop[index];
 
           return (
@@ -151,7 +151,7 @@ export default function ImageShowcaseSection() {
                 transition-all duration-[2000ms] ease-out transform
                 ${
                   shouldAnimate
-                    ? 'opacity-100 translate-x-0 translate-y-0'
+                    ? "opacity-100 translate-x-0 translate-y-0"
                     : `opacity-0 ${img.animateFrom} invisible`
                 }
               `}
@@ -173,7 +173,7 @@ export default function ImageShowcaseSection() {
       {/* Mobile layout */}
       <div className="relative w-full h-full flex flex-col items-center gap-6 py-20 px-4 md:hidden z-0">
         {images.map((img, index) => {
-          const isVisible = useInView(mobileImgRefs[index], '-50px');
+          const isVisible = useInView(mobileImgRefs[index], "-50px");
           const shouldAnimate = isVisible && loadedMobile[index];
           const delay = `${index * 200}ms`;
 
@@ -185,8 +185,8 @@ export default function ImageShowcaseSection() {
               className={`w-full max-w-[360px] transition-all duration-[1200ms] ease-out transform
                 ${
                   shouldAnimate
-                    ? 'opacity-100 translate-y-0'
-                    : 'opacity-0 translate-y-6 invisible'
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-6 invisible"
                 }
               `}
             >

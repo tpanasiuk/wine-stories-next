@@ -6,7 +6,7 @@ import BestsellersSection from "@/components/BestsellersSection";
 import TastingForm from "@/components/TastingForm";
 import Footer from "@/components/Footer";
 
-const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
+const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export default function Home() {
   return (

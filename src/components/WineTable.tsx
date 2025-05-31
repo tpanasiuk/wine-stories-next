@@ -23,7 +23,7 @@ export default function WineTable({ wines }: WineTableProps) {
       (wine) =>
         wine.title.toLowerCase().includes(lowerQuery) ||
         wine.country.toLowerCase().includes(lowerQuery) ||
-        wine.winery.toLowerCase().includes(lowerQuery)
+        wine.winery.toLowerCase().includes(lowerQuery),
     );
     setFilteredWines(filtered);
   }, [searchQuery, wines]);
@@ -44,7 +44,7 @@ export default function WineTable({ wines }: WineTableProps) {
 
   const paginatedWines = sortedWines.slice(
     (currentPage - 1) * pageSize,
-    currentPage * pageSize
+    currentPage * pageSize,
   );
 
   const totalPages = Math.ceil(sortedWines.length / pageSize);
@@ -70,7 +70,10 @@ export default function WineTable({ wines }: WineTableProps) {
               <th className="p-4 w-[80px]">Image</th>
               <th className="p-4 w-[180px]">Name</th>
               <th className="p-4 w-[160px]">Winery</th>
-              <th className="p-4 w-[120px] cursor-pointer" onClick={handleSortClick}>
+              <th
+                className="p-4 w-[120px] cursor-pointer"
+                onClick={handleSortClick}
+              >
                 <div className="flex items-center gap-1">
                   <span>Rating</span>
                   <span>{sortDirection === "asc" ? "↑" : "↓"}</span>
@@ -96,10 +99,16 @@ export default function WineTable({ wines }: WineTableProps) {
                     loading="lazy"
                   />
                 </td>
-                <td className="p-4 w-[180px] text-white break-words">{wine.title}</td>
-                <td className="p-4 w-[160px] text-white/80 break-words">{wine.winery}</td>
+                <td className="p-4 w-[180px] text-white break-words">
+                  {wine.title}
+                </td>
+                <td className="p-4 w-[160px] text-white/80 break-words">
+                  {wine.winery}
+                </td>
                 <td className="p-4 w-[120px] text-white/80">{wine.points}</td>
-                <td className="p-4 w-[140px] text-white/80 break-words">{wine.country}</td>
+                <td className="p-4 w-[140px] text-white/80 break-words">
+                  {wine.country}
+                </td>
               </tr>
             ))}
           </tbody>

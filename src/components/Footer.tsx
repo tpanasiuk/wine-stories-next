@@ -54,10 +54,10 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                              <Link href="/wines" className="hover:text-black">
-                                Discover Wines
-                              </Link>
-                            </li>
+                <Link href="/wines" className="hover:text-black">
+                  Discover Wines
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>

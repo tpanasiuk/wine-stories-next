@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
-function useInView(ref: React.RefObject<Element>, margin = '0px') {
+function useInView(ref: React.RefObject<Element>, margin = "0px") {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ function useInView(ref: React.RefObject<Element>, margin = '0px') {
       ([entry]) => {
         setVisible(entry.isIntersecting);
       },
-      { rootMargin: margin, threshold: 0.1 }
+      { rootMargin: margin, threshold: 0.1 },
     );
 
     observer.observe(element);
@@ -26,7 +26,6 @@ function useInView(ref: React.RefObject<Element>, margin = '0px') {
 
   return visible;
 }
-
 
 export default function TastingForm() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -51,12 +50,13 @@ export default function TastingForm() {
       className={`bg-[#282828] text-white/70 py-16 font-sans transition-all duration-1000 ease-out
         ${sectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
     >
-
       <div className="flex flex-row justify-between items-center md:items-start px-10 md:px-20 gap-6 md:gap-0 mb-[-6rem] md:mb-[-15rem] will-change-transform">
         <div
           ref={leftImgRef}
           className={`max-w-[150px] transition-all duration-1000 ease-out ${
-            leftVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
+            leftVisible
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 -translate-y-4"
           }`}
         >
           <Image
@@ -70,7 +70,9 @@ export default function TastingForm() {
         <div
           ref={rightImgRef}
           className={`max-w-[150px] transition-all duration-1000 ease-out delay-300 ${
-            rightVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
+            rightVisible
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 -translate-y-4"
           }`}
         >
           <Image
@@ -103,7 +105,10 @@ export default function TastingForm() {
 
             <div className="flex flex-col md:flex-row justify-between gap-6 mb-6">
               <div className="w-full md:w-[48%] text-left">
-                <label htmlFor="name" className="text-sm font-medium mb-1 block">
+                <label
+                  htmlFor="name"
+                  className="text-sm font-medium mb-1 block"
+                >
                   Name
                 </label>
                 <input
@@ -115,7 +120,10 @@ export default function TastingForm() {
                 />
               </div>
               <div className="w-full md:w-[48%] text-left">
-                <label htmlFor="phone-number" className="text-sm font-medium mb-1 block">
+                <label
+                  htmlFor="phone-number"
+                  className="text-sm font-medium mb-1 block"
+                >
                   Phone number
                 </label>
                 <input

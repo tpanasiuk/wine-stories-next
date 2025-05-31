@@ -18,16 +18,16 @@
 
 ## 🛠️ Tech Stack
 
-| Tool            | Description                              |
-|-----------------|------------------------------------------|
-| [Next.js 15](https://nextjs.org) | React framework with App Router and Turbopack |
-| [React 19](https://react.dev)     | UI library for interactive components        |
-| [Tailwind CSS](https://tailwindcss.com) | Utility-first CSS framework                 |
-| [TypeScript](https://www.typescriptlang.org) | Typed JavaScript                           |
-| [ESLint](https://eslint.org)     | Linting and code quality                    |
-| [Prettier](https://prettier.io)  | Code formatting                             |
-| [Font Awesome](https://fontawesome.com) | Icon library                               |
-| [React Hot Toast](https://react-hot-toast.com) | Lightweight toast notifications            |
+| Tool                                           | Description                                   |
+| ---------------------------------------------- | --------------------------------------------- |
+| [Next.js 15](https://nextjs.org)               | React framework with App Router and Turbopack |
+| [React 19](https://react.dev)                  | UI library for interactive components         |
+| [Tailwind CSS](https://tailwindcss.com)        | Utility-first CSS framework                   |
+| [TypeScript](https://www.typescriptlang.org)   | Typed JavaScript                              |
+| [ESLint](https://eslint.org)                   | Linting and code quality                      |
+| [Prettier](https://prettier.io)                | Code formatting                               |
+| [Font Awesome](https://fontawesome.com)        | Icon library                                  |
+| [React Hot Toast](https://react-hot-toast.com) | Lightweight toast notifications               |
 
 ---
 
@@ -41,3 +41,4 @@ cd wine-stories
 npm install
 npm run dev
 Open http://localhost:3000 to view it in the browser.
+```

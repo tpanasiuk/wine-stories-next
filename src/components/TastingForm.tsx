@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
-function useInView(ref: React.RefObject<Element>, margin = "0px") {
+function useInView(ref: React.RefObject<Element | null>, margin = "0px") {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {

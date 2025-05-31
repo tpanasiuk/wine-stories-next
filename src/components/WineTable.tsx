@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { Wine } from "@/app/lib/fetchWines";
+import Image from "next/image";
 
 type SortDirection = "asc" | "desc";
 const pageSize = 15;
+const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 interface WineTableProps {
   wines: Wine[];
@@ -92,11 +94,13 @@ export default function WineTable({ wines }: WineTableProps) {
                 } hover:bg-[#333333] transition-colors duration-200`}
               >
                 <td className="p-4 w-[80px]">
-                  <img
-                    src={wine.image}
+                  <Image
+                    src={wine.image ?? `${base}/assets/grapes.jpg`}
                     alt={wine.title}
-                    className="w-12 h-16 object-contain rounded transition-transform duration-300 hover:scale-150"
-                    loading="lazy"
+                    width={48}
+                    height={64}
+                    className="object-contain rounded transition-transform duration-300 hover:scale-150"
+                    style={{ width: "48px", height: "64px" }}
                   />
                 </td>
                 <td className="p-4 w-[180px] text-white break-words">

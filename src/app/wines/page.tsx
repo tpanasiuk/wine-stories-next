@@ -2,8 +2,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { fetchAllWines, Wine } from "@/app/lib/fetchWines";
 import WineTable from "@/components/WineTable";
-import Image from "next/image";
 import ImageGallery from "@/components/ImageGallery";
+
+export const dynamic = "force-static";
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
@@ -22,7 +23,6 @@ export default async function WinesPage() {
         background={`${base}/assets/wines/10.webp`}
         height="50vh"
         overlayOpacity="bg-black/50"
-        className="bg-bottom"
       />
 
       <main className="w-[90%] md:w-[80%] mx-auto py-16">

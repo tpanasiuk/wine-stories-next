@@ -1,15 +1,27 @@
-"use client";
-import Link from "next/link";
+'use client';
+
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 interface HeroProps {
   background: string;
 }
 
 export default function Hero({ background }: HeroProps) {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = background;
+    img.onload = () => setIsLoaded(true);
+  }, [background]);
+
   return (
     <section
-      className="relative h-[80vh] md:h-[60vh] bg-cover bg-center text-white font-sans"
-      style={{ backgroundImage: `url(${background})`, paddingTop: "200px" }}
+      className={`relative h-[80vh] md:h-[60vh] bg-cover bg-center text-white font-sans transition-opacity duration-700 ease-in-out ${
+        isLoaded ? 'opacity-100' : 'opacity-0'
+      }`}
+      style={{ backgroundImage: `url(${background})`, paddingTop: '200px' }}
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/70 z-0" />

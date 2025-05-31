@@ -11,9 +11,9 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
 export default function Home() {
   return (
     <>
-      <header className="relative">
+      <header className="relative bg-dark">
         <Nav />
-        <Hero background={`${base}/assets/field.jpg`} />
+        <Hero background={`${base}/assets/field.webp`} />
       </header>
 
       <main className="bg-dark">

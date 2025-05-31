@@ -44,25 +44,23 @@ function useInView(ref: React.RefObject<HTMLElement | null>, rootMargin = '0px')
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (!ref.current) return;
+    const node = ref.current;
+    if (!node) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
+        setIsVisible(entry.isIntersecting);
       },
-      { rootMargin }
+      { rootMargin, threshold: 0.1 }
     );
 
-    observer.observe(ref.current);
-
-    return () => observer.disconnect();
+    observer.observe(node);
+    return () => observer.unobserve(node);
   }, [ref, rootMargin]);
 
   return isVisible;
 }
+
 
 export default function CataloguePage() {
   const [flipped, setFlipped] = useState<string | null>(null);
@@ -70,7 +68,7 @@ export default function CataloguePage() {
   return (
     <div className="bg-[#282828] text-white/70 min-h-screen font-sans">
       <Header
-        background={`${base}/assets/grapes-cellar.jpg`}
+        background={`${base}/assets/grapes-cellar.webp`}
         height="40vh"
         overlayOpacity="bg-black/50"
       />
@@ -100,10 +98,11 @@ export default function CataloguePage() {
                     setFlipped(isFlipped ? null : wine.name);
                   }
                 }}
-                className={`relative cursor-pointer perspective transition-all duration-700 ease-out transform focus:outline-none ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                }`}
+                className={`relative cursor-pointer perspective focus:outline-none transition-all duration-1000 ease-out transform
+                  ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
+                `}
               >
+
                 <div
                   className={`transition-transform duration-500 transform-style-preserve-3d relative w-full h-80 rounded shadow-md hover:scale-105 ${
                     isFlipped ? 'rotate-y-180' : ''

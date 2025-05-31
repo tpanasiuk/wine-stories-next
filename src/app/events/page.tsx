@@ -3,6 +3,7 @@ import { useRef } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import EventCard from "@/components/EventCard";
+import { motion } from "framer-motion";
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
@@ -30,7 +31,7 @@ export default function EventsPage() {
   return (
     <div className="bg-[#282828] text-white/70 min-h-screen font-sans">
       <Header
-        background={`${base}/assets/grapes-field.jpg`}
+        background={`${base}/assets/grapes-field.webp`}
         height="40vh"
         overlayOpacity="bg-black/50"
       />
@@ -44,12 +45,29 @@ export default function EventsPage() {
 
         <section
           ref={sectionRef}
-          className="grid gap-6 md:grid-cols-3 opacity-100 translate-y-0"
+          className="grid gap-6 md:grid-cols-3"
         >
-          {events.map((event) => (
-            <EventCard key={event.date} {...event} />
+          {events.map((event, index) => (
+            <motion.div
+              key={event.date}
+              initial={{ rotateX: -90, scale: 0.9, opacity: 0 }}
+              whileInView={{ rotateX: 0, scale: 1, opacity: 1 }}
+              transition={{
+                type: "spring",
+                stiffness: 60,
+                damping: 12,
+                delay: index * 0.2,
+              }}
+              viewport={{ once: true, amount: 0.4 }}
+              className="transform-gpu h-full"
+            >
+              <div className="h-full flex">
+                <EventCard {...event} />
+              </div>
+            </motion.div>
           ))}
         </section>
+
       </main>
 
       <footer>

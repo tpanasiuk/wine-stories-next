@@ -1,12 +1,42 @@
 "use client";
-import { useRef } from "react";
+
+import { useRef, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Image from "next/image";
 
-const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
+const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
+function useInView(ref: React.RefObject<Element>, margin = '0px') {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setVisible(entry.isIntersecting);
+      },
+      { rootMargin: margin, threshold: 0.1 }
+    );
+
+    observer.observe(element);
+    return () => observer.unobserve(element);
+  }, [ref, margin]);
+
+  return visible;
+}
+
 
 export default function TastingForm() {
   const formRef = useRef<HTMLFormElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const leftImgRef = useRef<HTMLDivElement>(null);
+  const rightImgRef = useRef<HTMLDivElement>(null);
+
+  const sectionVisible = useInView(sectionRef, "-100px");
+  const leftVisible = useInView(leftImgRef, "-100px");
+  const rightVisible = useInView(rightImgRef, "-100px");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,12 +46,19 @@ export default function TastingForm() {
 
   return (
     <section
+      ref={sectionRef}
       id="tasting"
-      className="bg-[#282828] text-white/70 py-16 font-sans"
+      className={`bg-[#282828] text-white/70 py-16 font-sans transition-all duration-1000 ease-out
+        ${sectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
     >
-      {/* Decorative side images */}
-      <div className="flex flex-row justify-between items-center md:items-start px-10 md:px-20 gap-6 md:gap-0 mb-[-6rem] md:mb-[-15rem]">
-        <div className="max-w-[150px] flex justify-center md:justify-start">
+
+      <div className="flex flex-row justify-between items-center md:items-start px-10 md:px-20 gap-6 md:gap-0 mb-[-6rem] md:mb-[-15rem] will-change-transform">
+        <div
+          ref={leftImgRef}
+          className={`max-w-[150px] transition-all duration-1000 ease-out ${
+            leftVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
+          }`}
+        >
           <Image
             src={`${base}/assets/grapes.jpg`}
             alt="Grapes icon"
@@ -30,7 +67,12 @@ export default function TastingForm() {
             className="h-auto w-[100px] md:w-auto"
           />
         </div>
-        <div className="max-w-[150px] flex justify-center md:justify-end">
+        <div
+          ref={rightImgRef}
+          className={`max-w-[150px] transition-all duration-1000 ease-out delay-300 ${
+            rightVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
+          }`}
+        >
           <Image
             src={`${base}/assets/barrel.jpeg`}
             alt="Barrel icon"
@@ -61,10 +103,7 @@ export default function TastingForm() {
 
             <div className="flex flex-col md:flex-row justify-between gap-6 mb-6">
               <div className="w-full md:w-[48%] text-left">
-                <label
-                  htmlFor="name"
-                  className="text-sm font-medium mb-1 block"
-                >
+                <label htmlFor="name" className="text-sm font-medium mb-1 block">
                   Name
                 </label>
                 <input
@@ -76,10 +115,7 @@ export default function TastingForm() {
                 />
               </div>
               <div className="w-full md:w-[48%] text-left">
-                <label
-                  htmlFor="phone-number"
-                  className="text-sm font-medium mb-1 block"
-                >
+                <label htmlFor="phone-number" className="text-sm font-medium mb-1 block">
                   Phone number
                 </label>
                 <input

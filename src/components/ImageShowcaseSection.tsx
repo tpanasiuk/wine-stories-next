@@ -1,7 +1,6 @@
 'use client';
 
-import React from 'react';
-import { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 
 function useInView(ref: React.RefObject<Element | null>, margin = '0px') {
@@ -41,7 +40,7 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 const images = [
   {
-    src: `${base}/assets/wines/1.png`,
+    src: `${base}/assets/wines/1.webp`,
     alt: 'Chianti',
     style: 'top-[30px] left-[5%]',
     animateFrom: '-translate-x-12',
@@ -55,7 +54,7 @@ const images = [
     z: 'z-10',
   },
   {
-    src: `${base}/assets/wines/5.jpg`,
+    src: `${base}/assets/wines/5.webp`,
     alt: 'Prosecco',
     style: 'top-[160px] left-[52%]',
     animateFrom: 'translate-x-12',
@@ -75,11 +74,30 @@ export default function ImageShowcaseSection() {
   const titleRef = useRef<HTMLDivElement>(null);
   const bgWrapperRef = useRef<HTMLDivElement>(null);
 
+  const [bgLoaded, setBgLoaded] = useState(false);
   const isTitleVisible = useInView(titleRef, '-100px');
   const bgVisible = useInView(bgWrapperRef, '-100px');
 
   const desktopImgRefs = useRefArray<HTMLDivElement>(images.length);
   const mobileImgRefs = useRefArray<HTMLDivElement>(images.length);
+
+  const [loadedDesktop, setLoadedDesktop] = useState<boolean[]>(
+    Array(images.length).fill(false)
+  );
+  const [loadedMobile, setLoadedMobile] = useState<boolean[]>(
+    Array(images.length).fill(false)
+  );
+
+  const markLoaded = (
+    index: number,
+    setter: React.Dispatch<React.SetStateAction<boolean[]>>
+  ) => {
+    setter((prev) => {
+      const next = [...prev];
+      next[index] = true;
+      return next;
+    });
+  };
 
   return (
     <section
@@ -90,7 +108,7 @@ export default function ImageShowcaseSection() {
       <div
         ref={bgWrapperRef}
         className={`absolute inset-0 transition-opacity duration-[1000ms] ease-out ${
-          bgVisible ? 'opacity-30' : 'opacity-0'
+          bgVisible && bgLoaded ? 'opacity-30' : 'opacity-0'
         }`}
       >
         <Image
@@ -98,7 +116,7 @@ export default function ImageShowcaseSection() {
           alt="Background"
           fill
           style={{ objectFit: 'cover' }}
-          priority={false}
+          onLoad={() => setBgLoaded(true)}
         />
       </div>
 
@@ -110,7 +128,7 @@ export default function ImageShowcaseSection() {
         ref={titleRef}
         className={`w-full text-center px-4 z-20
           relative pt-6 md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2
-          transition-all duration-[3000ms] ease-out
+          transition-all duration-[2000ms] ease-out
           ${isTitleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 md:-translate-y-4'}
         `}
       >
@@ -123,13 +141,19 @@ export default function ImageShowcaseSection() {
       <div className="relative w-full h-full hidden md:block z-0">
         {images.map((img, index) => {
           const isVisible = useInView(desktopImgRefs[index], '-50px');
+          const shouldAnimate = isVisible && loadedDesktop[index];
+
           return (
             <div
               key={img.alt}
               ref={desktopImgRefs[index]}
               className={`absolute ${img.style} ${img.z} max-w-[460px] w-auto max-h-[440px]
-                transition-all duration-[3000ms] ease-out transform
-                ${isVisible ? 'opacity-100 translate-x-0 translate-y-0' : `opacity-0 ${img.animateFrom}`}
+                transition-all duration-[2000ms] ease-out transform
+                ${
+                  shouldAnimate
+                    ? 'opacity-100 translate-x-0 translate-y-0'
+                    : `opacity-0 ${img.animateFrom} invisible`
+                }
               `}
             >
               <Image
@@ -137,7 +161,9 @@ export default function ImageShowcaseSection() {
                 alt={img.alt}
                 width={460}
                 height={440}
-                className="rounded object-cover shadow-lg w-full h-auto"
+                onLoad={() => markLoaded(index, setLoadedDesktop)}
+                className="rounded object-cover shadow-lg w-full h-auto transition-opacity duration-700 ease-out"
+                priority={index === 0}
               />
             </div>
           );
@@ -148,6 +174,7 @@ export default function ImageShowcaseSection() {
       <div className="relative w-full h-full flex flex-col items-center gap-6 py-20 px-4 md:hidden z-0">
         {images.map((img, index) => {
           const isVisible = useInView(mobileImgRefs[index], '-50px');
+          const shouldAnimate = isVisible && loadedMobile[index];
           const delay = `${index * 200}ms`;
 
           return (
@@ -156,7 +183,11 @@ export default function ImageShowcaseSection() {
               ref={mobileImgRefs[index]}
               style={{ transitionDelay: delay }}
               className={`w-full max-w-[360px] transition-all duration-[1200ms] ease-out transform
-                ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
+                ${
+                  shouldAnimate
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-6 invisible'
+                }
               `}
             >
               <Image
@@ -164,7 +195,9 @@ export default function ImageShowcaseSection() {
                 alt={img.alt}
                 width={360}
                 height={240}
-                className="rounded object-cover shadow-lg w-full h-auto"
+                onLoad={() => markLoaded(index, setLoadedMobile)}
+                className="rounded object-cover shadow-lg w-full h-auto transition-opacity duration-700 ease-out"
+                priority={index === 0}
               />
             </div>
           );

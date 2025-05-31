@@ -6,6 +6,7 @@ const links = [
   { label: "About Us", href: "/" },
   { label: "Wine catalogue", href: "/catalogue" },
   { label: "Events", href: "/events" },
+  { label: "Discover Wines", href: "/wines" },
 ];
 
 export default function Nav() {

@@ -6,12 +6,14 @@
   "homepage": "https://tpanasiuk.github.io/wine-stories-next",
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
-    "export": "next export",
+    "build": "npm run build:vercel",
+    "build:vercel": "cross-env NEXT_PUBLIC_DEPLOY_TARGET=vercel next build",
+    "build:github": "cross-env NEXT_PUBLIC_DEPLOY_TARGET=github next build && next export",
     "start": "next start",
+    "export": "next export",
+    "deploy": "npm run build:github && echo > out/.nojekyll && gh-pages -d out -t",
     "lint": "next lint",
-    "format": "prettier . --write",
-    "deploy": "npm run build && echo > out/.nojekyll && gh-pages -d out -t"
+    "format": "prettier . --write"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
@@ -35,6 +37,7 @@
     "eslint-config-next": "15.3.2",
     "gh-pages": "^6.3.0",
     "prettier": "^3.5.3",
-    "typescript": "^5"
+    "typescript": "^5",
+    "cross-env": "^7.0.3"
   }
 }

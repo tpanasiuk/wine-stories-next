@@ -1,9 +1,14 @@
 /** @type {import('next').NextConfig} */
+const isGithub = process.env.NEXT_PUBLIC_DEPLOY_TARGET === "github";
+
+const basePath = isGithub ? "/wine-stories-next" : "";
+const assetPrefix = isGithub ? "/wine-stories-next/" : "";
+
 const nextConfig = {
   output: "export",
   distDir: "out",
-  basePath: "/wine-stories-next",
-  assetPrefix: "/wine-stories-next",
+  basePath,
+  assetPrefix,
   images: {
     unoptimized: true,
   },

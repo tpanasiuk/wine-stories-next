@@ -6,10 +6,12 @@ export default function EventCard({
   date,
   title,
   desc,
+  eventId,
 }: {
   date: string;
   title: string;
   desc: string;
+  eventId: string;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
@@ -18,11 +20,34 @@ export default function EventCard({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Successfully registered for the event!");
-    setIsOpen(false);
-    setFormData({ name: "", email: "", phone: "" });
+
+    try {
+      const res = await fetch(`${base}/api/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          eventId,
+          eventTitle: title,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        toast.success("Successfully registered for the event!");
+        setIsOpen(false);
+        setFormData({ name: "", email: "", phone: "" });
+      } else {
+        toast.error(data.message || "Registration failed");
+      }
+    } catch {
+      toast.error("Network error");
+    }
   };
 
   return (

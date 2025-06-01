@@ -37,10 +37,36 @@ export default function TastingForm() {
   const leftVisible = useInView(leftImgRef, "-100px");
   const rightVisible = useInView(rightImgRef, "-100px");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast.success("Successfully registered!");
-    formRef.current?.reset();
+
+    const formData = new FormData(e.currentTarget);
+    const payload = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      phone: formData.get("phone-number"),
+    };
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/api/register`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        },
+      );
+
+      if (res.ok) {
+        toast.success("Successfully registered!");
+        formRef.current?.reset();
+      } else {
+        const data = await res.json();
+        toast.error(data.message || "Something went wrong");
+      }
+    } catch {
+      toast.error("Network error");
+    }
   };
 
   return (

@@ -106,14 +106,13 @@ export default function CataloguePage() {
                     setFlipped(isFlipped ? null : wine.name);
                   }
                 }}
-                className={`relative cursor-pointer perspective focus:outline-none transition-all duration-1000 ease-out transform
+                className={`relative cursor-pointer focus:outline-none transition-all duration-1000 ease-out transform
                   ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}
-                `}
+                  perspective`}
               >
                 <div
-                  className={`transition-transform duration-500 transform-style-preserve-3d relative w-full h-80 rounded shadow-md hover:scale-105 ${
-                    isFlipped ? "rotate-y-180" : ""
-                  }`}
+                  className={`relative w-full h-80 rounded shadow-md transform-style-preserve-3d transition-transform duration-500
+                    ${isFlipped ? "rotate-y-180 scale-105" : ""}`}
                 >
                   {/* Front */}
                   <div className="absolute w-full h-full backface-hidden bg-[#1e1e1e] rounded overflow-hidden">
@@ -146,21 +145,6 @@ export default function CataloguePage() {
       <footer>
         <Footer />
       </footer>
-
-      <style jsx>{`
-        .perspective {
-          perspective: 1000px;
-        }
-        .transform-style-preserve-3d {
-          transform-style: preserve-3d;
-        }
-        .backface-hidden {
-          backface-visibility: hidden;
-        }
-        .rotate-y-180 {
-          transform: rotateY(180deg);
-        }
-      `}</style>
     </div>
   );
 }

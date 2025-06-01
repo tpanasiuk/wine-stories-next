@@ -10,16 +10,19 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 export default function EventsPage() {
   const events = [
     {
+      eventId: "event-001",
       date: "15 JUN 2025",
       title: "Summer Tasting: Veneto & Tuscany",
       desc: "Join us for an exquisite evening featuring red and white wines from Veneto and Tuscany regions. Enjoy light appetizers and meet fellow wine enthusiasts.",
     },
     {
+      eventId: "event-002",
       date: "10 JUL 2025",
       title: "Rosé by the Beach",
       desc: "Taste a curated selection of premium rosés perfect for summer, paired with Mediterranean snacks in a relaxed setting.",
     },
     {
+      eventId: "event-003",
       date: "25 AUG 2025",
       title: "Harvest Preview: Autumn Collection",
       desc: "Experience early releases from this year's harvest. Discover unique flavors before they reach the shelves.",
@@ -46,7 +49,7 @@ export default function EventsPage() {
         <section ref={sectionRef} className="grid gap-6 md:grid-cols-3">
           {events.map((event, index) => (
             <motion.div
-              key={event.date}
+              key={event.eventId}
               initial={{ rotateX: -90, scale: 0.9, opacity: 0 }}
               whileInView={{ rotateX: 0, scale: 1, opacity: 1 }}
               transition={{

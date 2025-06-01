@@ -28,6 +28,12 @@ const config: Config = {
       },
     },
   },
+  safelist: [
+    "perspective",
+    "transform-style-preserve-3d",
+    "backface-hidden",
+    "rotate-y-180",
+  ],
   plugins: [],
 };
 

@@ -29,7 +29,9 @@ export default function Nav() {
         }`}
       >
         <div className="flex justify-between items-center md:hidden py-4">
-          <span className="text-white text-xl">Wine Stories</span>
+          <Link href="/" className="text-white text-xl">
+            Wine Stories
+          </Link>
           <button
             onClick={() => setMenuOpen((prev) => !prev)}
             className="text-white text-2xl"

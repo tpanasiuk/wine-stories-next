@@ -3,6 +3,14 @@ import { MongoClient } from "mongodb";
 const uri = process.env.MONGODB_URI as string;
 const options = {};
 
+// ✅ Add global type extension
+declare global {
+  // In ES modules, globalThis is preferred
+  interface GlobalThis {
+    _mongoClientPromise?: Promise<MongoClient>;
+  }
+}
+
 let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
 
@@ -11,14 +19,19 @@ if (!process.env.MONGODB_URI) {
 }
 
 if (process.env.NODE_ENV === "development") {
-  if (!global._mongoClientPromise) {
+  if (!globalThis._mongoClientPromise) {
     client = new MongoClient(uri, options);
-    global._mongoClientPromise = client.connect();
+    globalThis._mongoClientPromise = client.connect();
   }
-  clientPromise = global._mongoClientPromise;
+  clientPromise = globalThis._mongoClientPromise;
 } else {
   client = new MongoClient(uri, options);
   clientPromise = client.connect();
 }
+
+// ✅ Optional logging
+clientPromise
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => console.error("❌ MongoDB connection failed:", err));
 
 export default clientPromise;

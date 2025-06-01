@@ -10,6 +10,9 @@ const nextConfig = {
       unoptimized: true,
     },
   }),
+  images: {
+    domains: ["images.vivino.com"],
+  },
 };
 
 export default nextConfig;

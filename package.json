@@ -8,7 +8,7 @@
     "dev": "next dev --turbopack",
     "build": "npm run build:vercel",
     "build:vercel": "cross-env NEXT_PUBLIC_DEPLOY_TARGET=vercel next build",
-    "build:github": "cross-env NEXT_PUBLIC_DEPLOY_TARGET=github next build && next export",
+    "build:github": "cross-env NEXT_PUBLIC_DEPLOY_TARGET=github next build",
     "start": "next start",
     "export": "next export",
     "deploy": "npm run build:github && echo > out/.nojekyll && gh-pages -d out -t",

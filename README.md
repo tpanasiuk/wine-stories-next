@@ -46,8 +46,7 @@ The project includes a custom API route (`/api/register`) that handles wine tast
 
 ## 🚀 Getting Started
 
-### 1. Clone the repository
-
 ```bash
 git clone https://github.com/your-username/wine-stories.git
-cd wine-stories
+npm install
+npm run dev

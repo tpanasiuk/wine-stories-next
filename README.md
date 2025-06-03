@@ -8,6 +8,8 @@
 
 - 🖼️ Image showcase section with scroll-based animations
 - 📱 Fully responsive design (mobile-first)
+- 🔍 Wine catalogue with search, sort, and pagination
+- 🧾 Wine tasting registration form with MongoDB storage
 - 🎨 Styled using Tailwind CSS with custom animations and transitions
 - 🔥 Toast notifications via `react-hot-toast`
 - ⚙️ Developer-ready with Prettier formatting and ESLint
@@ -24,10 +26,21 @@
 | [React 19](https://react.dev)                  | UI library for interactive components         |
 | [Tailwind CSS](https://tailwindcss.com)        | Utility-first CSS framework                   |
 | [TypeScript](https://www.typescriptlang.org)   | Typed JavaScript                              |
+| [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) | Cloud database for storing form submissions |
 | [ESLint](https://eslint.org)                   | Linting and code quality                      |
 | [Prettier](https://prettier.io)                | Code formatting                               |
 | [Font Awesome](https://fontawesome.com)        | Icon library                                  |
 | [React Hot Toast](https://react-hot-toast.com) | Lightweight toast notifications               |
+
+---
+
+## 🌐 API & MongoDB Integration
+
+The project includes a custom API route (`/api/register`) that handles wine tasting form submissions. Upon submission, the data is securely stored in a **MongoDB Atlas** collection using the official MongoDB Node.js driver.
+
+- 📦 MongoDB connection handled via a shared utility (`lib/mongodb.ts`)
+- 🧩 Environment variables (`.env.local`) required for MongoDB URI
+- 🔐 Data is validated and handled securely on the server side
 
 ---
 
@@ -38,7 +51,3 @@
 ```bash
 git clone https://github.com/your-username/wine-stories.git
 cd wine-stories
-npm install
-npm run dev
-Open http://localhost:3000 to view it in the browser.
-```
